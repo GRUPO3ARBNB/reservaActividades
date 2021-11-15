@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Clase para el manejo de entidades reserva...
+ * Clase para el manejo de entidad Reserva...
  * @author Luis Cruz
  * @since 1.0
  **/
