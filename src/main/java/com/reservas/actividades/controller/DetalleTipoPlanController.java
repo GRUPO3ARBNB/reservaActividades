@@ -1,6 +1,6 @@
 package com.reservas.actividades.controller;
 
-import com.reservas.actividades.dto.DetalleTipoPlanDTO;
+import com.reservas.actividades.dto.DetallesTipoPlanAnidadoDTO;
 import com.reservas.actividades.mappers.IDetalleTipoPlanMapper;
 import com.reservas.actividades.model.DetalleTipoPlan;
 import com.reservas.actividades.service.interfaces.IDetalleTipoPlanService;
@@ -33,13 +33,13 @@ public class DetalleTipoPlanController {
      **/
 
     @GetMapping("/all")
-    public ResponseEntity<List<DetalleTipoPlanDTO>> findAll() {
+    public ResponseEntity<List<DetallesTipoPlanAnidadoDTO>> findAll() {
         List<DetalleTipoPlan> detalleTipoPlanList = this.detalleTipoPlanService.findAllDetalleTipoPlan();
         if (detalleTipoPlanList == null || detalleTipoPlanList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(detalleTipoPlanList.stream()
-                .map(IDetalleTipoPlanMapper.INSTANCE::toDetalleTipoPlanDTO).collect(Collectors.toList()), HttpStatus.OK);
+                .map(IDetalleTipoPlanMapper.INSTANCE::toDetallesTipoPlanAnidadoDTO).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     /**
@@ -48,10 +48,10 @@ public class DetalleTipoPlanController {
      **/
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<DetalleTipoPlanDTO> findById(@PathVariable(value = "id") Long aId) {
+    public ResponseEntity<DetallesTipoPlanAnidadoDTO> findById(@PathVariable(value = "id") Long aId) {
         var detalleTipoPlan = this.detalleTipoPlanService.findById(aId);
         if (detalleTipoPlan != null) {
-            return new ResponseEntity<>(IDetalleTipoPlanMapper.INSTANCE.toDetalleTipoPlanDTO(detalleTipoPlan), HttpStatus.OK);
+            return new ResponseEntity<>(IDetalleTipoPlanMapper.INSTANCE.toDetallesTipoPlanAnidadoDTO(detalleTipoPlan), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

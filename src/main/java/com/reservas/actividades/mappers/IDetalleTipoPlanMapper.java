@@ -1,6 +1,7 @@
 package com.reservas.actividades.mappers;
 
 import com.reservas.actividades.dto.DetalleTipoPlanDTO;
+import com.reservas.actividades.dto.DetallesTipoPlanAnidadoDTO;
 import com.reservas.actividades.model.DetalleTipoPlan;
 import com.reservas.actividades.model.TipoPlanRegistro;
 import org.mapstruct.InheritInverseConfiguration;
@@ -52,6 +53,13 @@ public interface IDetalleTipoPlanMapper {
     @Mapping(target = "observacionTipoPlan",source = "tipoPlan.observacion")
     @Mapping(target = "cadenaRestricciones", expression = "java(getCadenaRestricciones(aDetalleTipoPlan.getTipoPlan().getTipoPlanRegistroList()))")
     DetalleTipoPlanDTO toDetalleTipoPlanDTO(DetalleTipoPlan aDetalleTipoPlan);
+
+    @InheritInverseConfiguration
+    @Mapping(target = "plan", source = "plan")
+    @Mapping(target = "tipoPlan", source = "tipoPlan")
+    @Mapping(target = "ubicacion", source = "plan.ubicacion")
+    @Mapping(target = "restriccionList", source = "tipoPlan.tipoPlanRegistroList")
+    DetallesTipoPlanAnidadoDTO toDetallesTipoPlanAnidadoDTO(DetalleTipoPlan aDetalleTipoPlan);
 
     default String getCadenaRestricciones(List<TipoPlanRegistro> aTipoPlanRegistroList) {
         StringBuilder cadenaRestricciones = new StringBuilder();

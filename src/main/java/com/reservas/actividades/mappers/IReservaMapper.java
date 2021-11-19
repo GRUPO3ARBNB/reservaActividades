@@ -1,6 +1,9 @@
 package com.reservas.actividades.mappers;
 
+import com.reservas.actividades.dto.DetalleReservaDTO;
+import com.reservas.actividades.dto.DetallesTipoPlanAnidadoDTO;
 import com.reservas.actividades.dto.ReservaDTO;
+import com.reservas.actividades.model.DetalleTipoPlan;
 import com.reservas.actividades.model.Reserva;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -49,4 +52,9 @@ public interface IReservaMapper {
     @Mapping(target = "departamento", source = "plan.ubicacion.departamento")
     @Mapping(target = "pais", source = "plan.ubicacion.pais")
     ReservaDTO toReservaDTO(Reserva aReserva);
+
+    @InheritInverseConfiguration
+    @Mapping(target = "plan", source = "plan")
+    @Mapping(target = "ubicacion", source = "plan.ubicacion")
+    DetalleReservaDTO toDetalleReservaDTO(Reserva aReserva);
 }

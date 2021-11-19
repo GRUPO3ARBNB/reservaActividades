@@ -1,5 +1,6 @@
 package com.reservas.actividades.controller;
 
+import com.reservas.actividades.dto.DetalleReservaDTO;
 import com.reservas.actividades.dto.ReservaDTO;
 import com.reservas.actividades.mappers.IReservaMapper;
 import com.reservas.actividades.model.Reserva;
@@ -31,13 +32,13 @@ public class ReservaController {
      **/
 
     @GetMapping("/all")
-    public ResponseEntity<List<ReservaDTO>> findAll() {
+    public ResponseEntity<List<DetalleReservaDTO>> findAll() {
         List<Reserva> reservaList = this.reservaService.findAllReserva();
         if (reservaList == null || reservaList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(reservaList.stream()
-                .map(IReservaMapper.INSTANCE::toReservaDTO).collect(Collectors.toList()), HttpStatus.OK);
+                .map(IReservaMapper.INSTANCE::toDetalleReservaDTO).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     /**
@@ -46,10 +47,10 @@ public class ReservaController {
      **/
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<ReservaDTO> findById(@PathVariable(value = "id") Long aId) {
+    public ResponseEntity<DetalleReservaDTO> findById(@PathVariable(value = "id") Long aId) {
         var reserva = this.reservaService.findById(aId);
         if (reserva != null) {
-            return new ResponseEntity<>(IReservaMapper.INSTANCE.toReservaDTO(reserva), HttpStatus.OK);
+            return new ResponseEntity<>(IReservaMapper.INSTANCE.toDetalleReservaDTO(reserva), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
